@@ -4,7 +4,7 @@ import './TodoList.css';
 const TodoListComponent = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState('all'); 
   const [selectedTodo, setSelectedTodo] = useState(null);
 
   const handleAddTodo = () => {
@@ -49,14 +49,7 @@ const TodoListComponent = () => {
           onChange={(e) => setNewTodo(e.target.value)}
           placeholder="Add a new to do"
         />
-        <button className="add-button" onClick={handleAddTodo}>
-          Add
-        </button>
-        <div className="filter-buttons">
-          <button onClick={() => setFilter('all')}>All</button>
-          <button onClick={() => setFilter('completed')}>Completed</button>
-          <button onClick={() => setFilter('incomplete')}>Incomplete</button>
-        </div>
+        <button onClick={handleAddTodo}>Add</button>
         <ul>
           {filteredTodos.map((todo, index) => (
             <li key={index} className={todo.completed ? 'completed' : ''}>
@@ -76,6 +69,11 @@ const TodoListComponent = () => {
             </li>
           ))}
         </ul>
+        <div className="filter-buttons">
+          <button onClick={() => setFilter('all')}>All</button>
+          <button onClick={() => setFilter('completed')}>Completed</button>
+          <button onClick={() => setFilter('incomplete')}>Incomplete</button>
+        </div>
       </div>
       {selectedTodo !== null && (
         <div className="additional-content">
@@ -89,7 +87,7 @@ const TodoListComponent = () => {
             }}
           />
           <button className="collapse-button" onClick={() => setSelectedTodo(null)}>
-            Collapse
+            Close
           </button>
         </div>
       )}
@@ -98,4 +96,3 @@ const TodoListComponent = () => {
 };
 
 export default TodoListComponent;
-
