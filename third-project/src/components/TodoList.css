@@ -102,7 +102,10 @@
   background-color: #fffff0;
   margin-left: 20px;
   margin-top: 20px;
-  width: calc(100% - 460px); 
+  width: calc(100% - 460px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .additional-content h3 {
