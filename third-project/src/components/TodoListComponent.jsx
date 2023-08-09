@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './TodoList.css';
 
-const TodoList = () => {
+const TodoListComponent = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
 
@@ -41,11 +41,14 @@ const TodoList = () => {
           >
             <span
               onClick={() => handleToggleTodo(index)}
+              className="todo-text"
               style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
             >
               {todo.text}
             </span>
-            <button onClick={() => handleRemoveTodo(index)}>Remove</button>
+            <button className="remove-button" onClick={() => handleRemoveTodo(index)}>
+              X
+            </button>
           </li>
         ))}
       </ul>
@@ -53,4 +56,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default TodoListComponent;

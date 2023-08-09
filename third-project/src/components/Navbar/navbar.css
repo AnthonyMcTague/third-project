@@ -1,27 +1,36 @@
-
-
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #007bff;
-    padding: 10px 20px;
-    color: #fff;
+    background-color: black;
+    padding: 10px 0; 
+    color: white;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%; 
+    z-index: 100; 
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px; 
   }
   
   .navbar a {
-    color: red;
+    color: white;
     text-decoration: none;
-    margin-right: 15px;
     font-weight: bold;
     transition: color 0.3s;
   }
   
-  .navbar a:last-child {
-    margin-right: 0;
-  }
-  
   .navbar a:hover {
-    color: #0056b3;
+    color: orange;
   }
   
+  
+  
+  
+  
+  
+
