@@ -5,6 +5,7 @@ const TodoListComponent = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [filter, setFilter] = useState('all'); 
+  const [selectedTodo, setSelectedTodo] = useState(null);
 
   const handleAddTodo = () => {
     if (newTodo.trim() !== '') {
@@ -24,6 +25,10 @@ const TodoListComponent = () => {
     setTodos(updatedTodos);
   };
 
+  const handleTodoClick = (index) => {
+    setSelectedTodo(index === selectedTodo ? null : index);
+  };
+
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'completed') {
       return todo.completed;
@@ -36,35 +41,53 @@ const TodoListComponent = () => {
 
   return (
     <div className="todo-list">
-      <h2>To do List</h2>
-      <input
-        type="text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="Add a new to do"
-      />
-      <button onClick={handleAddTodo}>Add</button>
-      <div className="filter-buttons">
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('completed')}>Completed</button>
-        <button onClick={() => setFilter('incomplete')}>Incomplete</button>
+      <div className="todo-sidebar">
+        <h2>To do List</h2>
+        <input
+          type="text"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          placeholder="Add a new to do"
+        />
+        <button onClick={handleAddTodo}>Add</button>
+        <div className="filter-buttons">
+          <button onClick={() => setFilter('all')}>All</button>
+          <button onClick={() => setFilter('completed')}>Completed</button>
+          <button onClick={() => setFilter('incomplete')}>Incomplete</button>
+        </div>
+        <ul>
+          {filteredTodos.map((todo, index) => (
+            <li key={index} className={todo.completed ? 'completed' : ''}>
+              <span
+                onClick={() => handleToggleTodo(index)}
+                className="todo-text"
+                style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+              >
+                {todo.text}
+              </span>
+              <button className="remove-button" onClick={() => handleRemoveTodo(index)}>
+                X
+              </button>
+              <button className="expand-button" onClick={() => handleTodoClick(index)}>
+                {selectedTodo === index ? 'Collapse' : 'Expand'}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul>
-        {filteredTodos.map((todo, index) => (
-          <li key={index} className={todo.completed ? 'completed' : ''}>
-            <span
-              onClick={() => handleToggleTodo(index)}
-              className="todo-text"
-              style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-            >
-              {todo.text}
-            </span>
-            <button className="remove-button" onClick={() => handleRemoveTodo(index)}>
-              X
-            </button>
-          </li>
-        ))}
-      </ul>
+      {selectedTodo !== null && (
+        <div className="additional-content">
+          <h3>Additional Content</h3>
+          <textarea
+            value={todos[selectedTodo]?.additionalContent || ''}
+            onChange={(e) => {
+              const updatedTodos = [...todos];
+              updatedTodos[selectedTodo].additionalContent = e.target.value;
+              setTodos(updatedTodos);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
