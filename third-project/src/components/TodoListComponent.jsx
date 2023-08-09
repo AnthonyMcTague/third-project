@@ -4,7 +4,7 @@ import './TodoList.css';
 const TodoListComponent = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
-  const [filter, setFilter] = useState('all'); 
+  const [filter, setFilter] = useState('all');
   const [selectedTodo, setSelectedTodo] = useState(null);
 
   const handleAddTodo = () => {
@@ -49,7 +49,9 @@ const TodoListComponent = () => {
           onChange={(e) => setNewTodo(e.target.value)}
           placeholder="Add a new to do"
         />
-        <button onClick={handleAddTodo}>Add</button>
+        <button className="add-button" onClick={handleAddTodo}>
+          Add
+        </button>
         <div className="filter-buttons">
           <button onClick={() => setFilter('all')}>All</button>
           <button onClick={() => setFilter('completed')}>Completed</button>
@@ -86,6 +88,9 @@ const TodoListComponent = () => {
               setTodos(updatedTodos);
             }}
           />
+          <button className="collapse-button" onClick={() => setSelectedTodo(null)}>
+            Collapse
+          </button>
         </div>
       )}
     </div>
@@ -93,3 +98,4 @@ const TodoListComponent = () => {
 };
 
 export default TodoListComponent;
+
