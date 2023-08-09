@@ -4,6 +4,7 @@ import './TodoList.css';
 const TodoListComponent = () => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
+  const [filter, setFilter] = useState('all'); 
 
   const handleAddTodo = () => {
     if (newTodo.trim() !== '') {
@@ -23,6 +24,16 @@ const TodoListComponent = () => {
     setTodos(updatedTodos);
   };
 
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === 'completed') {
+      return todo.completed;
+    } else if (filter === 'incomplete') {
+      return !todo.completed;
+    } else {
+      return true;
+    }
+  });
+
   return (
     <div className="todo-list">
       <h2>To do List</h2>
@@ -33,12 +44,14 @@ const TodoListComponent = () => {
         placeholder="Add a new to do"
       />
       <button onClick={handleAddTodo}>Add</button>
+      <div className="filter-buttons">
+        <button onClick={() => setFilter('all')}>All</button>
+        <button onClick={() => setFilter('completed')}>Completed</button>
+        <button onClick={() => setFilter('incomplete')}>Incomplete</button>
+      </div>
       <ul>
-        {todos.map((todo, index) => (
-          <li
-            key={index}
-            className={todo.completed ? 'completed' : ''}
-          >
+        {filteredTodos.map((todo, index) => (
+          <li key={index} className={todo.completed ? 'completed' : ''}>
             <span
               onClick={() => handleToggleTodo(index)}
               className="todo-text"
